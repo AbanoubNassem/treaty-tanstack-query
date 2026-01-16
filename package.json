@@ -1,11 +1,15 @@
 {
   "name": "treaty-tanstack-query",
+  "type": "module",
   "description": "Automatic type inference from your Elysia routes to queryOptions and mutationOptions. No manual typing required.",
   "private": true,
   "overrides": {
     "@tanstack/query-core": "^5.90.17"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.3.1",
+    "@commitlint/config-conventional": "^20.3.1",
+    "husky": "^9.1.7",
     "turbo": "^2.7.4",
     "vitepress": "^1.6.4",
     "vue": "^3.5.26"
@@ -14,5 +18,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "prepare": "husky"
+  }
 }
