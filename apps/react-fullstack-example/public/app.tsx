@@ -169,7 +169,6 @@ function StatsSection() {
 			refetchInterval: 5000 // Auto-refresh every 5s
 		})
 	)
-
 	if (!stats) return null
 
 	const statCards = [

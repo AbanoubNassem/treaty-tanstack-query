@@ -1,6 +1,6 @@
 {
   "name": "treaty-tanstack-react-query",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "TanStack React Query adapter for Elysia Treaty",
   "license": "Apache-2.0",

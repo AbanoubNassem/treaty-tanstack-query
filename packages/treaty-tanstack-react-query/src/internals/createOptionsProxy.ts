@@ -198,6 +198,34 @@ type HttpMutationMethod =
 type HttpSubscriptionMethod = 'subscribe';
 type HttpMethod = HttpQueryMethod | HttpMutationMethod | HttpSubscriptionMethod;
 
+/**
+ * Checks if a value is an actual HTTP method handler (callable returning TreatyResponse)
+ * vs a nested route object. This distinguishes between:
+ * - `client.api.users.get()` where `get` is the HTTP method
+ * - `client.api.get.users` where `get` is a path segment
+ */
+type IsHttpMethodHandler<TValue> = TValue extends (
+  ...args: any[]
+) => infer TReturn
+  ? TReturn extends Promise<infer TAwaited>
+    ? TAwaited extends { data: any; error: any; response: Response }
+      ? true
+      : false
+    : false
+  : false;
+
+/**
+ * Filters out keys that are actual HTTP method handlers.
+ * A key is filtered out only if:
+ * 1. Its name matches an HTTP method name (get, post, etc.)
+ * 2. AND its value is actually an HTTP method handler (returns TreatyResponse)
+ */
+type IsActualHttpMethod<TClient, TKey> = TKey extends HttpMethod
+  ? TKey extends keyof TClient
+    ? IsHttpMethodHandler<TClient[TKey]>
+    : false
+  : false;
+
 type FirstArg<TFn> = TFn extends (...args: any[]) => any ? Parameters<TFn>[0] : undefined;
 
 type MaybePromise<T> = T | Promise<T>;
@@ -414,7 +442,9 @@ export type DecoratedTreatyRecord<
   TClient,
   TFeatureFlags extends FeatureFlags = DefaultFeatureFlags,
 > = {
-  [TKey in keyof TClient as TKey extends HttpMethod ? never : TKey]: TKey extends string
+  [TKey in keyof TClient as IsActualHttpMethod<TClient, TKey> extends true
+    ? never
+    : TKey]: TKey extends string
     ? DecorateTreatyClient<TClient[TKey], TFeatureFlags>
     : never;
 };
@@ -450,7 +480,9 @@ type DecoratedTreatyRecordUtils<
   TClient,
   TFeatureFlags extends FeatureFlags = DefaultFeatureFlags,
 > = {
-  [TKey in keyof TClient as TKey extends HttpMethod ? never : TKey]: TKey extends string
+  [TKey in keyof TClient as IsActualHttpMethod<TClient, TKey> extends true
+    ? never
+    : TKey]: TKey extends string
     ? TreatyUtilsProxy<TClient[TKey], TFeatureFlags>
     : never;
 };

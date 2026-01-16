@@ -95,7 +95,7 @@ export const app = new Elysia()
 	// ========================================================================
 
 	.get('/api/user/me', () => currentUser)
-	.get('/api/users', () => [currentUser])
+	.get('/get/api/get/users', () => [currentUser])
 
 	// ========================================================================
 	// Task Routes (CRUD + Filters)
