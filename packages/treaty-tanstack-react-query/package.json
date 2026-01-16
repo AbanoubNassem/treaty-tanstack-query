@@ -1,0 +1,95 @@
+{
+  "name": "treaty-tanstack-react-query",
+  "version": "0.0.2",
+  "type": "module",
+  "description": "TanStack React Query adapter for Elysia Treaty",
+  "license": "Apache-2.0",
+  "author": "Abanoub Nassem",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbanoubNassem/treaty-tanstack-query.git",
+    "directory": "packages/treaty-tanstack-react-query"
+  },
+  "homepage": "https://abanoubnassem.github.io/treaty-tanstack-query/",
+  "bugs": {
+    "url": "https://github.com/AbanoubNassem/treaty-tanstack-query/issues"
+  },
+  "keywords": [
+    "tanstack",
+    "react-query",
+    "elysia",
+    "eden",
+    "treaty",
+    "typescript",
+    "type-safe"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs",
+        "default": "./dist/index.js"
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build"
+  },
+  "eslintConfig": {
+    "rules": {
+      "react-hooks/exhaustive-deps": "error",
+      "no-restricted-imports": [
+        "error"
+      ],
+      "@typescript-eslint/prefer-function-type": "off"
+    }
+  },
+  "peerDependencies": {
+    "@elysiajs/eden": ">=1.0.0",
+    "@tanstack/react-query": ">=5.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "typescript": ">=5.0.0"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "^5.90.17",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.1.0",
+    "elysia": "^1.4.21",
+    "eslint": "^9.26.0",
+    "happy-dom": "^17.6.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
